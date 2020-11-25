@@ -8,22 +8,26 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 public class DistinctArrayGenerator {
-    public boolean isValidRangeNumber(int sizeArrayInput) throws NumberOutOfRangeException {
-        if(sizeArrayInput <1 || sizeArrayInput >100)
-            throw new NumberOutOfRangeException("O número deve ser maior ou igual a 1, e menor ou igual a 100");
-        return true;
+    private int arraySize;
+
+    public DistinctArrayGenerator(int arraySize){
+        this.arraySize = arraySize;
     }
 
-    public int[] GenerateArray(int sizeOfArray) throws NumberOutOfRangeException {
-        boolean validNumber = isValidRangeNumber(sizeOfArray);
-        int[] arrayResponse = new int[sizeOfArray];
-        if(validNumber){
-            for(int i = 0; i < sizeOfArray -1; i++){
-                arrayResponse[i] = getNextValueToArray(arrayResponse);
-            }
-            int sum = IntStream.of(arrayResponse).sum();
-            arrayResponse[sizeOfArray -1] = sum * -1;
+    public void isValidRangeNumber() throws NumberOutOfRangeException {
+        if(this.arraySize <1 || arraySize >100)
+            throw new NumberOutOfRangeException("O número deve ser maior ou igual a 1, e menor ou igual a 100");
+    }
+
+    public int[] GenerateArray() throws NumberOutOfRangeException {
+        isValidRangeNumber();
+
+        int[] arrayResponse = new int[this.arraySize];
+        for(int i = 0; i < this.arraySize -1; i++){
+            arrayResponse[i] = getNextValueToArray(arrayResponse);
         }
+        int sum = IntStream.of(arrayResponse).sum();
+        arrayResponse[this.arraySize -1] = sum * -1;
         return arrayResponse;
     }
 

@@ -8,12 +8,12 @@ import exception.NumberOutOfRangeException;
 import main.DistinctArrayGenerator;
 
 public class DistinctArrayGeneratorTest {
-    private DistinctArrayGenerator arrayGenerator = new DistinctArrayGenerator();
 
     @Test
     public void deveriaGerarOArraySemErro() throws NumberOutOfRangeException {
         int sizeArray = 5;
-        int[] arrayResponse = this.arrayGenerator.GenerateArray(sizeArray);
+        DistinctArrayGenerator arrayGenerator = new DistinctArrayGenerator(sizeArray);
+        int[] arrayResponse = arrayGenerator.GenerateArray();
         int sum = IntStream.of(arrayResponse).sum();
         assertEquals(sum, 0);
     }
@@ -21,6 +21,7 @@ public class DistinctArrayGeneratorTest {
     @Test(expected = NumberOutOfRangeException.class)
     public void deveriaLancarExceptionAoGerarOArrray() throws NumberOutOfRangeException {
         int sizeArray = 150;
-        this.arrayGenerator.GenerateArray(sizeArray);
+        DistinctArrayGenerator arrayGenerator = new DistinctArrayGenerator(sizeArray);
+        arrayGenerator.GenerateArray();
     }
 }
